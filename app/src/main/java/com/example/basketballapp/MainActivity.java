@@ -1,17 +1,8 @@
 package com.example.basketballapp;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.util.Log;
-import android.widget.ActionMenuView;
-import android.widget.TextView;
-import android.widget.Button;
-import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.basketballapp.databinding.ActivityMainBinding;
 
@@ -45,13 +36,22 @@ public class MainActivity extends AppCompatActivity {
         mBinding.buttonAAdd6.setOnClickListener(v ->{
             addB(3);
         });
-    }
+        mBinding.imageButtonRevoke.setOnClickListener(v -> {
+            revoke();
+
+        });
+        mBinding.imageButtonReset.setOnClickListener(v -> {
+            reset();
+        });
+    };
     public void addA(int i){
+        save();
         scroeA += i;
         show();
     }
 
     public void addB(int i){
+        save();
         scroeB += i;
         show();
     }
@@ -59,5 +59,23 @@ public class MainActivity extends AppCompatActivity {
     public void  show(){
         mBinding.textScoreA.setText(String.valueOf(scroeA));
         mBinding.textScoreB.setText(String.valueOf(scroeB));
+    }
+
+    public void revoke(){
+        scroeA = saveA;
+        scroeB = saveB;
+        show();
+    }
+
+    public void reset(){
+        save();
+        scroeB = 0;
+        scroeA = 0;
+        show();
+    }
+
+    public void save(){
+        saveA = Integer.parseInt(mBinding.textScoreA.getText().toString());
+        saveB = Integer.parseInt(mBinding.textScoreB.getText().toString());
     }
 }
